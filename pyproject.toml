@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "zingo-game"
+version = "0.1.0"
+description = "Zingo is a fun and interactive game developed using Python and Pygame."
+authors = ["GERGO Kanyogh <kgergo1713@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pygame = "^2.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
