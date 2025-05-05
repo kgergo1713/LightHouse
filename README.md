@@ -21,3 +21,4 @@ Install with Poetry:
 
 ```bash
 poetry add pygame
+enjoy
