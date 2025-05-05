@@ -1,16 +1,13 @@
 [tool.poetry]
-name = "Sodoku"
-version = "0.1.2"
-description = "Sodoku game"
-authors = ["Gergo Kanyogh <kgergo1713@gmail.com>"]
-license = "MIT"
+name = "sodoku"
+version = "0.1.0"
+description = ""
+authors = ["kgerg <kanyogh@mediamarktsaturn.com>"]
+readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10"
-pygame = "^2.6.1"
+python = "^3.9"
 
-[tool.poetry.dev-dependencies]
-pytest = "^8.0"
 
 [build-system]
 requires = ["poetry-core"]

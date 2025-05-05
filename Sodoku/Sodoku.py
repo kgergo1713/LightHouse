@@ -36,8 +36,7 @@ screen_center_y = screen.get_height() // 2
 #CLASSES
 class Char:
 
-
-    def __init__(self, x_pos, y_pos, value = '', color = 'black', visible = True):
+    def __init__(self, x_pos, y_pos, value='', color='black', visible=True):
         self.x_pos = x_pos
         self.y_pos = y_pos
         self.x_coor = board_x_offset + self.x_pos * char_width
@@ -59,16 +58,16 @@ def spritesheet_loader(file, row, column):
     sprites = []
     spritesheet = pg.image.load(file).convert_alpha()
     x_size = int(spritesheet.get_width() / column)  #width in pixels
-    y_size = int(spritesheet.get_height() / row)    #height in pixels
+    y_size = int(spritesheet.get_height() / row)  #height in pixels
     for y in range(row):
         for x in range(column):
-            rect = pg.Rect((x * x_size, y * y_size),(x_size, y_size))
+            rect = pg.Rect((x * x_size, y * y_size), (x_size, y_size))
             sprites.append(spritesheet.subsurface(rect))
     return sprites
 
 
 def displays_background():
-    screen.blit(sprite_background[0], (0,0))
+    screen.blit(sprite_background[0], (0, 0))
 
 
 def displays_chars():
@@ -82,7 +81,7 @@ def displays_chars():
             sample[y][x].displays()
     #level
     for i in range(8):
-        level_control[i].displays()  
+        level_control[i].displays()
 
 
 def displays_graphics():
@@ -97,7 +96,7 @@ def displays_graphics():
     #delay and screen flip
     pg.display.flip()
     clock.tick(40)
-    
+
 
 def board_generator():
     rows = []
@@ -131,7 +130,7 @@ def board_generator():
                     for row in rows:
                         if row[element_index] in possible_column_elements:
                             possible_column_elements.remove(row[element_index])
-                        
+
                     #removes 3x3 field elements from the list
                     actual_row = len(rows)
                     actual_field_elements = []
@@ -149,25 +148,25 @@ def board_generator():
                             possible_column_elements.remove(actual_field_element)
 
                     #in case of no more possibility: repeat the row
-                    if len(new_list) <9 and possible_column_elements == []:
+                    if len(new_list) < 9 and possible_column_elements == []:
                         no_possible = True
                         fault_counter += 1
                         break
                     else:
-                        #mixing the possible numbers    
+                        #mixing the possible numbers
                         random_element = random.choice(possible_column_elements)
                         #one number is finished
                         new_list.append(random_element)
 
-        #row is finished    
+        #row is finished
         rows.append(new_list)
     return rows
 
 
 def matrix_unselect(x, y, selected_value):
-        board_lines[y][x].value = selected_value
-        board_lines[y][x].visible = False
-        return None
+    board_lines[y][x].value = selected_value
+    board_lines[y][x].visible = False
+    return None
 
 
 def matrix_select(x, y, selected_value):
@@ -203,7 +202,7 @@ def check_win():
         if not is_valid_unit(unit):
             #fault in a row
             return False
-    
+
     #vertical: 9 columns
     for board_column in zip(*board_lines):
         unit = []
@@ -213,11 +212,11 @@ def check_win():
         if not is_valid_unit(unit):
             #fault in a column
             return False
-    
+
     #3x3 fields: 9 pieces
     for i in range(0, 9, 3):
         for j in range(0, 9, 3):
-            unit = []    
+            unit = []
             for x in range(i, i + 3):
                 for y in range(j, j + 3):
                     if board_lines[x][y].visible:
@@ -236,7 +235,8 @@ def win():
             #sound: win
             sound_win.play()
 
-def level_handling(direction = None):
+
+def level_handling(direction=None):
     global game_level
     if direction == 'up':
         if game_level < 8:
@@ -250,13 +250,12 @@ def level_handling(direction = None):
         else:
             level_control[i].color = level_char_color[1]
     new_game()
-    
 
 
 def init():
     global sprite_background, sample, sound_win, sound_click
     global sound_write, level_control, level_char_color
-    sprite_background = spritesheet_loader('Graph\\BG800x749.png', 1, 1)
+    sprite_background = spritesheet_loader('../Graph/BG800x749.png', 1, 1)
 
     #sounds
     pg.mixer.init()
@@ -271,7 +270,7 @@ def init():
     for y in range(3):
         sample_chars = []
         for x in range(3):
-            sample_chars.append(Char(x + 3, y - 4, y *3 + x + 1, 'orange', True))
+            sample_chars.append(Char(x + 3, y - 4, y * 3 + x + 1, 'orange', True))
         sample.append(sample_chars)
 
     #level control
@@ -307,21 +306,21 @@ def new_game():
     board_lines = []
     for y, random_board_line in enumerate(random_board):
         board_chars = []
-        for x,random_board_number in enumerate(random_board_line):
+        for x, random_board_number in enumerate(random_board_line):
             #hidden positions
-            if (x, y) in hidden_x_y: 
+            if (x, y) in hidden_x_y:
                 board_chars.append(Char(x, y, 0, 'orange', False))
             #normal positions
             else:
                 board_chars.append(Char(x, y, random_board_number, 'black', True))
         board_lines.append(board_chars)
-    
+
 
 def test():
     #displays random board in consol for test
     print('   ┌─┬─┬─┬─┬─┬─┬─┬─┬─┐')
     for row in random_board:
-        print(f'{random_board.index(row)+1}: ', end='')
+        print(f'{random_board.index(row) + 1}: ', end='')
         for element in row:
             print(f'|{element}', end='')
         print('|')
@@ -338,7 +337,7 @@ level_handling()
 #MAIN LOOP
 while game_running:
     screen.fill('white')
-    
+
     #Event handling
     for event in pg.event.get():
         if event.type == pg.QUIT:
@@ -351,7 +350,7 @@ while game_running:
 
                 #clicking on the board
                 if ((matrix_mouse_x >= 0) and (matrix_mouse_y >= 0) and
-                    (matrix_mouse_x <= 8) and (matrix_mouse_y <= 8)):
+                        (matrix_mouse_x <= 8) and (matrix_mouse_y <= 8)):
                     #sound: click
                     sound_click.play()
                     checked = False
@@ -367,14 +366,14 @@ while game_running:
                                                              selected_value[2])
                         #if we have a selection -> clear and jump to the new
                         else:
-                             selected_value = matrix_unselect(selected_value[0],
+                            selected_value = matrix_unselect(selected_value[0],
                                                              selected_value[1],
                                                              selected_value[2])
-                             selected_value = matrix_select(matrix_mouse_x, matrix_mouse_y, selected_value)
+                            selected_value = matrix_select(matrix_mouse_x, matrix_mouse_y, selected_value)
 
                 #clicking on the samples
                 if ((matrix_mouse_x >= 3) and (matrix_mouse_y >= -4) and
-                    (matrix_mouse_x <= 5) and (matrix_mouse_y <= -2)):
+                        (matrix_mouse_x <= 5) and (matrix_mouse_y <= -2)):
                     if selected_value != None:
                         selected_sample = sample[matrix_mouse_y + 4][matrix_mouse_x - 3].value
                         write_selected(selected_value, selected_sample)
@@ -386,7 +385,7 @@ while game_running:
 
                 #clicking on the level control
                 if ((matrix_mouse_x == 15) and (matrix_mouse_y >= 4) and
-                    (matrix_mouse_y <= 12)):
+                        (matrix_mouse_y <= 12)):
                     game_level = 13 - matrix_mouse_y
                     level_handling()
 
@@ -400,7 +399,6 @@ while game_running:
             if event.key == pg.K_SPACE:
                 level_handling()
 
-
             #up: new game with level up
             if event.key == pg.K_UP:
                 level_handling('up')
@@ -408,7 +406,7 @@ while game_running:
             #down: new game with level down
             if event.key == pg.K_DOWN:
                 level_handling('down')
-            
+
     #Graphics
     displays_graphics()
 
