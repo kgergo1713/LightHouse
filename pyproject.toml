@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "Sodoku"
+version = "0.1.0"
+description = "Sodoku game"
+authors = ["Gergo Kanyogh <kgergo1713@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pygame = "^2.6.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^8.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
