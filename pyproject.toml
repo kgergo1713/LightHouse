@@ -2,11 +2,13 @@
 name = "sodoku"
 version = "0.1.0"
 description = ""
-authors = ["kgerg <kanyogh@mediamarktsaturn.com>"]
+authors = ["Gergo Kanyogh <kgergo1713@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.9"
+pygame = "^2.6.1"
+
 
 
 [build-system]
